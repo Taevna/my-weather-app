@@ -12,9 +12,8 @@
       <link rel="stylesheet" href="src/style.css" />
       <!===================FONTS===================>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
-          rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@100;500;900&display=swap" rel="stylesheet">
         <!===================ICON===================>
           <script src="https://kit.fontawesome.com/534429d5a2.js" crossorigin="anonymous"></script>
           <!===================API AXIOS===================>
@@ -36,18 +35,23 @@
       <!-------TODAYS WEATHER---------->
 
       <div class="row">
-        <div class="weatherCondition">
-          <h1 class="city" id="city">Hamburg</h1>
-          <p class="day" id="day">Friday</p>
-
-          <i class="fas fa-cloud"></i>
-          <div class="temperature-unit">
-            <h2 class="temperature" id="temperature">11</h2>
-            <span class="unit" id="unit">°C</span>
-            <span class="unit">|</span>
-            <span class="unit" id="unit">°F</span>
+          <div class="col-md-6" id="icon-weathercondition" >
+            <img class="icon" icon="clear sky"  src="src/icons/01d.png">
           </div>
-        </div>
+          <div class="col-md-6" id="weathercondition">
+            <p class="day" id="day">Friday</p>
+            <h1 class="city" id="city">Berlin</h1>
+            <div class="temperature-unit">
+              <h2 class="temperature" id="temperature">11</h2>
+              <span class="unit" id="unit">°C</span>
+             <ul>
+               <li class="discription"> Sunny
+               </li>
+               <li class="humidity">Humidity: 81%</li>
+               <li class="wind">Wind: 6 km/h</li>
+             </ul>
+            </div>
+          </div>
       </div>
 
       <!-------WEATHER FORECAST---------->

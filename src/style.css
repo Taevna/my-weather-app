@@ -1,21 +1,19 @@
 body {
-  font-family: "Dosis", sans-serif;
+  font-family: "Barlow", sans-serif;
   background-color: #fff;
   margin: 0;
   font-size: 14px;
-  color: #495464;
+  color: #1b262c;
 }
 
 .weatherApp {
   display: block;
   margin: 50px auto 0px auto;
-  width: 700px;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 8px;
-  border-color: #f9813a;
+  width: 800px;
+  border-radius: 15px;
   padding: 10px;
-  background-color: #f4f4f2;
+  background-color: #fff;
+  box-shadow: 10px 10px 40px #878787;
 }
 /* SEARCH FORM */
 #search-form {
@@ -27,31 +25,62 @@ body {
   width: 300px;
   display: inline;
 }
-.weatherCondition {
-  text-align: center;
+#icon-weathercondition {
+  display: inline;
+  position: relative;
+  left: 20px;
+}
+#weathercondition {
+  display: inline;
 }
 /* TODAY´S WEATHER */
-.city {
-  font-family: "Josefin Sans", sans-serif;
-  font-size: 40px;
-  font-weight: bold;
-}
+
 .day {
-  color: #f9813a;
+  font-size: 12px;
+  font-weight: 100;
+  margin-bottom: 0;
+  position: relative;
+  top: 20px;
+}
+.city {
+  display: inline;
+  font-size: 30px;
+  font-weight: bold;
+  position: relative;
+  top: 20px;
 }
 
 .temperature {
-  font-family: "Josefin Sans", sans-serif;
   display: inline;
-  font-size: 48px;
-  font-weight: bold;
+  font-size: 90px;
+  font-weight: 900;
+  position: relative;
+  top: 10px;
 }
 
 .unit {
-  font-size: 14px;
+  font-size: 90px;
+  font-weight: 900;
   position: relative;
-  top: -22px;
-  cursor: default;
+  top: 10px;
+
+  /*font-size: 30px;
+  font-weight: 900;
+  position: relative;
+  top: -53px;*/
+}
+ul {
+  padding: 0;
+}
+
+li {
+  font-size: 12px;
+  font-weight: 100;
+  list-style: none;
+}
+
+.col-md-6 {
+  margin-top: 40px;
 }
 /* WEATHER FORECAST*/
 
@@ -88,17 +117,9 @@ body {
 }
 
 /* ICON */
-.col-2 {
-  text-align: center;
+.icon {
+  width: 280px;
 }
-
-i {
-  margin-bottom: 15px;
-
-  font-size: 30px;
-  font-size-adjust: center;
-}
-
 .source-code {
   text-align: center;
 }

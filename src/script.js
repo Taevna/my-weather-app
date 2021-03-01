@@ -2,13 +2,13 @@ let now = new Date();
 
 function showWeekday(now) {
   let days = [
-    "SUNDAY",
-    "MONDAY",
-    "TUESDAY",
-    "WEDNESDAY",
-    "THURSDAY",
-    "FRIDAY",
-    "SATURDAY"
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
   ];
   let dayInt = now.getDay();
   let day = days[dayInt];
@@ -21,7 +21,7 @@ function showTime(now) {
   return `${hours}:${minutes}`;
 }
 
-document.querySelector("#day").innerHTML = `${showWeekday(now)} – ${showTime(
+document.querySelector("#day").innerHTML = `${showWeekday(now)} | ${showTime(
   now
 )}`;
 
