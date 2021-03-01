@@ -46,7 +46,7 @@ body {
 }
 .city {
   display: inline;
-  font-size: 30px;
+  font-size: 36px;
   font-weight: bold;
   position: relative;
   top: 20px;
@@ -87,20 +87,24 @@ li {
 
 #fahrenheitButton {
   color: #1b262c;
-  width: 50px;
-  height: 30px;
+  width: 45px;
+  height: 35px;
   background-color: #bbe1fa;
-  border-top-left-radius: 9px;
-  border-bottom-left-radius: 9px;
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
   border-style: none;
   position: relative;
   top: -400px;
-  left: 740px;
+  left: 745px;
 }
-#fahrenheit {
-  font-size: 16px;
+#fahrenheitButton a {
+  font-size: 10px;
   text-decoration: none;
   font-weight: 900;
+  position: relative;
+  top: -2px;
+  left: 2px;
+  color: #1b262c;
 }
 /* WEATHER FORECAST*/
 
