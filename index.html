@@ -35,15 +35,15 @@
       <!-------TODAYS WEATHER---------->
 
       <div class="row">
-          <div class="col-md-6" id="icon-weathercondition" >
+          <div class="col-md-6 icon-weathercondition" id="icon-weathercondition" >
             <img class="icon" icon="clear sky"  src="src/icons/01d.png">
           </div>
           <div class="col-md-6" id="weathercondition">
-            <p class="day" id="day">Friday</p>
-            <h1 class="city" id="city">Berlin</h1>
+            <div class="day" id="day">Friday</div>
+            <div class="city" id="city">Berlin</div>
             <div class="temperature-unit">
-              <h2 class="temperature" id="temperature">11</h2>
-              <span class="unit" id="unit">°C</span>
+              <div class="temperature" id="temperature">11</div>
+              <span class="units" id="units">°C</span>
              <ul>
                <li class="discription"> Sunny
                </li>
@@ -53,6 +53,7 @@
             </div>
           </div>
       </div>
+     
 
       <!-------WEATHER FORECAST---------->
 
@@ -133,7 +134,7 @@
       
       
     </div>
-    
+    <button id="fahrenheitButton"><a id="fahrenheit" href="#">°F</a> </button>
   </div>
   <p class="source-code">
     <a href="https://github.com/Taevna/my-weather-app" target="_blank">Open-source Code </a> by Taevna Dobhardt

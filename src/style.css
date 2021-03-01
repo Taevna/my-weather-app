@@ -25,16 +25,18 @@ body {
   width: 300px;
   display: inline;
 }
+
+/* TODAY´S WEATHER */
 #icon-weathercondition {
   display: inline;
-  position: relative;
-  left: 20px;
+}
+.icon {
+  display: block;
+  margin: 0 auto;
 }
 #weathercondition {
   display: inline;
 }
-/* TODAY´S WEATHER */
-
 .day {
   font-size: 12px;
   font-weight: 100;
@@ -58,7 +60,7 @@ body {
   top: 10px;
 }
 
-.unit {
+.units {
   font-size: 90px;
   font-weight: 900;
   position: relative;
@@ -81,6 +83,24 @@ li {
 
 .col-md-6 {
   margin-top: 40px;
+}
+
+#fahrenheitButton {
+  color: #1b262c;
+  width: 50px;
+  height: 30px;
+  background-color: #bbe1fa;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+  border-style: none;
+  position: relative;
+  top: -400px;
+  left: 740px;
+}
+#fahrenheit {
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 900;
 }
 /* WEATHER FORECAST*/
 
