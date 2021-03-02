@@ -25,6 +25,20 @@ document.querySelector("#day").innerHTML = `${showWeekday(now)} | ${showTime(
   now
 )}`;
 
+
+function displayDefaultCity(response){
+  let defaultCity = document.querySelector("#city");
+  defaultCity.innerHTML = response.data.name;
+  
+}
+let defaultCity = "Berlin";
+let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
+let api = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&units=metric&appid=${apiKey}`;
+
+axios.get(api).then(displayDefaultCity)
+
+
+
 let city = document.querySelector("#search-form");
 
 function displayCondition(response) {
@@ -46,3 +60,6 @@ function handleSubmit(event) {
 }
 
 city.addEventListener("submit", handleSubmit);
+
+
+
