@@ -96,6 +96,8 @@ function displayDefaultCondition(response){
   let defaultFeelsLike = document.querySelector("#feelsLike");
   let defaultHumidity = document.querySelector("#humidity");
   let defaultWind = document.querySelector("#wind");
+  let defaultIcon = document.querySelector("#icon");
+
   
   
   defaultDate.innerHTML = formatDate(response.data.dt);
@@ -105,11 +107,14 @@ function displayDefaultCondition(response){
   defaultFeelsLike.innerHTML = Math.round(response.data.main.feels_like);
   defaultHumidity.innerHTML = Math.round(response.data.main.humidity);
   defaultWind.innerHTML = Math.round(response.data.wind.speed);
+  defaultIcon.setAttribute("src", `src/icons/${response.data.weather[0].icon}.png`);
+  console.log(response.data.weather[0].icon);
+  
   
   console.log(response);
   
 }
-let defaultCity = "Berlin";
+let defaultCity = "Moscow";
 let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
 let api = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&units=metric&appid=${apiKey}`;
 
