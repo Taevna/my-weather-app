@@ -79,8 +79,7 @@ let months = [
   "September",
   "October",
   "November",
-  "December",
-
+  "December"
 ]
 let month = months[date.getMonth()];
 let dayInt = date.getDate();
