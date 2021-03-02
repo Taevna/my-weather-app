@@ -85,7 +85,9 @@ let months = [
 let month = months[date.getMonth()];
 let dayInt = date.getDate();
 let year = date.getFullYear();
- return `${day}, ${month} ${dayInt} ${year}`;
+let hours = date.getUTCHours();
+let minutes = date.getMinutes();
+ return `${day}, ${month} ${dayInt} ${year} | ${hours}:${minutes}`;
 }
 function displayDefaultCondition(response){
   let defaultDate = document.querySelector("#date");
