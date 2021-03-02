@@ -1,5 +1,6 @@
 let now = new Date();
 
+
 function showWeekday(now) {
   let days = [
     "Sunday",
@@ -21,22 +22,13 @@ function showTime(now) {
   return `${hours}:${minutes}`;
 }
 
-document.querySelector("#day").innerHTML = `${showWeekday(now)} | ${showTime(
+
+/*
+document.querySelector("#day").innerHTML = `${showWeekday(now)}, | ${showTime(
   now
 )}`;
 
-
-function displayDefaultCity(response){
-  let defaultCity = document.querySelector("#city");
-  defaultCity.innerHTML = response.data.name;
-  
-}
-let defaultCity = "Berlin";
-let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
-let api = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&units=metric&appid=${apiKey}`;
-
-axios.get(api).then(displayDefaultCity)
-
+*/
 
 
 let city = document.querySelector("#search-form");
@@ -61,5 +53,65 @@ function handleSubmit(event) {
 
 city.addEventListener("submit", handleSubmit);
 
+
+function formatDate(timestamp){
+let date = new Date(timestamp*1000);
+let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+let day = days[date.getDay()];
+let months = [
+  
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "Juni",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+
+]
+let month = months[date.getMonth()];
+let dayInt = date.getDate();
+let year = date.getFullYear();
+ return `${day}, ${month} ${dayInt} ${year}`;
+}
+function displayDefaultCondition(response){
+  let defaultDate = document.querySelector("#date");
+  let defaultCity = document.querySelector("#city");
+  let defaultTemparature = document.querySelector("#temperature");
+  let defaultDiscription = document.querySelector("#description");
+  let defaultFeelsLike = document.querySelector("#feelsLike");
+  let defaultHumidity = document.querySelector("#humidity");
+  let defaultWind = document.querySelector("#wind");
+  
+  
+  defaultDate.innerHTML = formatDate(response.data.dt);
+  defaultCity.innerHTML = response.data.name;
+  defaultTemparature.innerHTML = Math.round(response.data.main.temp);
+  defaultDiscription.innerHTML = response.data.weather[0].description;
+  defaultFeelsLike.innerHTML = Math.round(response.data.main.feels_like);
+  defaultHumidity.innerHTML = Math.round(response.data.main.humidity);
+  defaultWind.innerHTML = Math.round(response.data.wind.speed);
+  
+  console.log(response);
+  
+}
+let defaultCity = "Berlin";
+let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
+let api = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&units=metric&appid=${apiKey}`;
+
+axios.get(api).then(displayDefaultCondition)
 
 

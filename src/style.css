@@ -37,7 +37,7 @@ body {
 #weathercondition {
   display: inline;
 }
-.day {
+.date {
   font-size: 12px;
   font-weight: 100;
   margin-bottom: 0;
@@ -58,6 +58,10 @@ body {
   font-weight: 900;
   position: relative;
   top: 10px;
+}
+
+.description::first-letter {
+  text-transform: uppercase;
 }
 
 .units {
