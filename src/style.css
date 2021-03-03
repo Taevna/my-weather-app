@@ -93,7 +93,7 @@ body {
   text-transform: uppercase;
 }
 
-.units {
+.unit {
   font-size: 90px;
   font-weight: 900;
   position: relative;
@@ -118,7 +118,7 @@ li {
   margin-top: 40px;
 }
 
-#fahrenheitButton {
+#unit-button {
   color: #1b262c;
   width: 45px;
   height: 35px;
@@ -130,7 +130,7 @@ li {
   top: -400px;
   left: 745px;
 }
-#fahrenheitButton a {
+#unit-button a {
   font-size: 10px;
   text-decoration: none;
   font-weight: 900;

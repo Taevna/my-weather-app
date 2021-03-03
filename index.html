@@ -28,8 +28,8 @@
         <form id="search-form">
           <input type="search" placeholder="Type a city..." autofocus="on" autocomplete="off" id="search-input" />
           <button type="button submit" id="submit-input"> Search  </button>
-          <button type="button submit" id="submit-input-currentPlace"><img src="src/icons/location-icon.png" alt=""></button>
-          <!--<input type="submit" id="submit-input-currentPlace" value="Location" />-->
+          <button type="button submit" id="submit-input-currentPlace"><img src="src/icons/location-icon.png" alt="location icon"></button>
+          
         </form>
       </div>
 
@@ -37,18 +37,18 @@
 
       <div class="row">
           <div class="col-md-6 icon-weathercondition" id="icon-weathercondition" >
-            <img src="" alt="today weather icon" class="icon" id="icon" >
+            <img src="" alt="" class="icon" id="icon" >
           </div>
           <div class="col-md-6" id="weathercondition">
             <div class="date" ><span id="date"></span></div>
             <div class="city" id="city"></div>
             <div class="temperature-unit">
               <div class="temperature" id="temperature"></div>
-              <span class="units" id="units">°C</span>
+              <span class="unit" id="unit">°C</span>
              <ul>
                <li class="description" id="description" > 
                </li>
-              <li class="feels-like" > Feels like: <span id="feelsLike"></span> °C
+              <li class="feels-like" > Feels like: <span id="feels-like-temperature"></span> <span id="feels-like-unit">°C</span>
               </li>
                <li class="humidity" >Humindity: <span id="humidity"></span>%</li>
                <li class="wind" >Wind: <span id="wind"></span> Km/H</li>
@@ -137,7 +137,7 @@
       
       
     </div>
-    <button id="fahrenheitButton"><a id="fahrenheit" href="#">°F</a> </button>
+    <button id="unit-button"><a id="unit-link" href="">°F</a> </button>
   </div>
   <p class="source-code">
     <a href="https://github.com/Taevna/my-weather-app" target="_blank">Open-source Code </a> by Taevna Dobhardt

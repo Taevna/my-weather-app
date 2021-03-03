@@ -40,24 +40,27 @@ function displayCondition(response) {
 
   let dateElement = document.querySelector("#date");
   let cityElement = document.querySelector("#city");
-  let temparatureElement = document.querySelector("#temperature");
-  let discriptionElement = document.querySelector("#description");
+  let temperatureElement = document.querySelector("#temperature");
+  let descriptionElement = document.querySelector("#description");
   let feelsLikeElement = document.querySelector("#feelsLike");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
   let iconElement = document.querySelector("#icon");
+  let altAttributElement = document.querySelector("#icon");
+  
 
   
   
   dateElement.innerHTML = formatDate(response.data.dt);
   cityElement.innerHTML = response.data.name;
-  temparatureElement.innerHTML = Math.round(response.data.main.temp);
-  discriptionElement.innerHTML = response.data.weather[0].description;
+  temperatureElement.innerHTML = Math.round(response.data.main.temp);
+  descriptionElement.innerHTML = response.data.weather[0].description;
   feelsLikeElement.innerHTML = Math.round(response.data.main.feels_like);
   humidityElement.innerHTML = Math.round(response.data.main.humidity);
   windElement.innerHTML = Math.round(response.data.wind.speed);
   iconElement.setAttribute("src", `src/icons/${response.data.weather[0].icon}.png`);
-  console.log(response.data.weather[0].icon);
+  altAttributElement.setAttribute("alt",`${response.data.weather[0].description}`);
+  
 }
 
 function searchCity(city) {
@@ -113,32 +116,82 @@ function displayDefaultCondition(response){
   let defaultDate = document.querySelector("#date");
   let defaultCity = document.querySelector("#city");
   let defaultTemparature = document.querySelector("#temperature");
-  let defaultDiscription = document.querySelector("#description");
-  let defaultFeelsLike = document.querySelector("#feelsLike");
+  let defaultDescription = document.querySelector("#description");
+  let defaultFeelsLike = document.querySelector("#feels-like-temperature");
   let defaultHumidity = document.querySelector("#humidity");
   let defaultWind = document.querySelector("#wind");
   let defaultIcon = document.querySelector("#icon");
+  let defaultAltAttribut = document.querySelector("#icon");
 
   
   
   defaultDate.innerHTML = formatDate(response.data.dt);
   defaultCity.innerHTML = response.data.name;
   defaultTemparature.innerHTML = Math.round(response.data.main.temp);
-  defaultDiscription.innerHTML = response.data.weather[0].description;
+  defaultDescription.innerHTML = response.data.weather[0].description;
   defaultFeelsLike.innerHTML = Math.round(response.data.main.feels_like);
   defaultHumidity.innerHTML = Math.round(response.data.main.humidity);
   defaultWind.innerHTML = Math.round(response.data.wind.speed);
   defaultIcon.setAttribute("src", `src/icons/${response.data.weather[0].icon}.png`);
-  console.log(response.data.weather[0].icon);
+  defaultAltAttribut.setAttribute("alt",`${response.data.weather[0].description}`);
   
   
-  console.log(response);
+  
+  
   
 }
-let defaultCity = "Moscow";
+let defaultCity = "Berlin";
 let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
 let api = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&units=metric&appid=${apiKey}`;
 
 axios.get(api).then(displayDefaultCondition)
 
+function changeUnit(event){
+  event.preventDefault();
+  let currentUnit = document.querySelector("#unit");
+  console.log(currentUnit)
+  if(currentUnit.innerHTML === "°C") {
 
+    let fahrenheitTemperature = Math.round(( 14 * 9 ) / 5 + 32);
+    let fahrenheitTemperatureElement = document.querySelector("#temperature");
+
+    let feelsLikeTemperature = Math.round(( 11 * 9 ) / 5 + 32);
+    console.log(feelsLikeTemperature);
+    let feelsLikeTemperatueElement = document.querySelector("#feels-like-temperature");
+
+    let unitElement = document.querySelector("#unit");
+    let unitButtonElement = document.querySelector("#unit-link");
+    let feelsLikeUnitElement = document.querySelector("#feels-like-unit");
+    
+    fahrenheitTemperatureElement.innerHTML = fahrenheitTemperature;
+    feelsLikeTemperatueElement.innerHTML = feelsLikeTemperature;
+    unitElement.innerHTML = "°F";
+    unitButtonElement.innerHTML = "°C";
+    feelsLikeUnitElement.innerHTML= "°F";
+    
+  } else {
+   
+    let celsiusTemperature = Math.round((55 - 32) * 5/9);
+    let celsiusTemperatureElement = document.querySelector("#temperature");
+
+    let feelsLikeTemperature = Math.round((50 - 32) * 5/9);
+    let feelsLikeTemperatureElement = document.querySelector("#feels-like-temperature");
+
+    let unitElement = document.querySelector("#unit");
+    let unitButtonElement = document.querySelector("#unit-link");
+    let feelsLikeUnitElement = document.querySelector("#feels-like-unit");
+    
+    celsiusTemperatureElement.innerHTML = celsiusTemperature;
+    feelsLikeTemperatureElement.innerHTML = feelsLikeTemperature;
+
+    unitElement.innerHTML = "°C";
+    unitButtonElement.innerHTML = "°F";
+    feelsLikeUnitElement.innerHTML = "°C";
+
+  }
+
+  
+}
+
+let unitElement = document.querySelector("#unit-button");
+unitElement.addEventListener("click", changeUnit);
