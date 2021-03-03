@@ -22,8 +22,37 @@ body {
 }
 
 #search-input {
-  width: 300px;
+  border-radius: 20px;
+  border: 1.5px solid #bbe1fa;
   display: inline;
+  font-weight: 500;
+  margin: 0;
+  padding: 0 0 0 15px;
+  width: 500px;
+  height: 35px;
+}
+
+#submit-input {
+  background-color: #bbe1fa;
+  border-style: none;
+  border-radius: 20px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  height: 35px;
+  width: 90px;
+}
+
+#submit-input-currentPlace {
+  border-radius: 20px;
+  background-color: #bbe1fa;
+  border-style: none;
+  margin: 0;
+  padding: 0;
+  height: 35px;
+  width: 45px;
+  position: relative;
+  top: -2px;
 }
 
 /* TODAY´S WEATHER */

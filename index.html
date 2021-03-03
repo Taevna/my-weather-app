@@ -26,9 +26,10 @@
       <!-------Search Form---------->
       <div class="row">
         <form id="search-form">
-          <input type="search" placeholder="Enter a city" autofocus="on" autocomplete="off" id="search-input" />
-          <input type="submit" id="submit-input" value="Search" />
-          <input type="submit" id="submit-input-currentPlace" value="Current Place" />
+          <input type="search" placeholder="Type a city..." autofocus="on" autocomplete="off" id="search-input" />
+          <button type="button submit" id="submit-input"> Search  </button>
+          <button type="button submit" id="submit-input-currentPlace"><img src="src/icons/location-icon.png" alt=""></button>
+          <!--<input type="submit" id="submit-input-currentPlace" value="Location" />-->
         </form>
       </div>
 
@@ -36,7 +37,7 @@
 
       <div class="row">
           <div class="col-md-6 icon-weathercondition" id="icon-weathercondition" >
-            <img src="" alt="" class="icon" id="icon" >
+            <img src="" alt="today weather icon" class="icon" id="icon" >
           </div>
           <div class="col-md-6" id="weathercondition">
             <div class="date" ><span id="date"></span></div>
