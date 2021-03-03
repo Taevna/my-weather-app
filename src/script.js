@@ -34,9 +34,30 @@ document.querySelector("#day").innerHTML = `${showWeekday(now)}, | ${showTime(
 let city = document.querySelector("#search-form");
 
 function displayCondition(response) {
-  let temperature = Math.floor(response.data.main.temp);
+  /*let temperature = Math.floor(response.data.main.temp);
   let temperatureH3 = document.querySelector("#temperature");
-  temperatureH3.innerHTML = `${temperature}`;
+  temperatureH3.innerHTML = `${temperature}`;*/
+
+  let dateElement = document.querySelector("#date");
+  let cityElement = document.querySelector("#city");
+  let temparatureElement = document.querySelector("#temperature");
+  let discriptionElement = document.querySelector("#description");
+  let feelsLikeElement = document.querySelector("#feelsLike");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
+  let iconElement = document.querySelector("#icon");
+
+  
+  
+  dateElement.innerHTML = formatDate(response.data.dt);
+  cityElement.innerHTML = response.data.name;
+  temparatureElement.innerHTML = Math.round(response.data.main.temp);
+  discriptionElement.innerHTML = response.data.weather[0].description;
+  feelsLikeElement.innerHTML = Math.round(response.data.main.feels_like);
+  humidityElement.innerHTML = Math.round(response.data.main.humidity);
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+  iconElement.setAttribute("src", `src/icons/${response.data.weather[0].icon}.png`);
+  console.log(response.data.weather[0].icon);
 }
 
 function searchCity(city) {
