@@ -26,10 +26,34 @@ function displayCondition(response) {
   
 }
 
+function displayForecast(response){
+  console.log(response.data.daily[0]);
+}
+
+function getCityCoord(response){
+  let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
+  let cityLat = response.data.city.coord.lat;
+  let cityLon = response.data.city.coord.lon;
+  api = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely&units=metric&appid=${apiKey}`;
+  axios.get(api).then(displayForecast);
+  
+}
+
+
+
+
+
 function searchCity(city) {
   let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
   let api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
   axios.get(api).then(displayCondition);
+//api = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely&units=metric&appid=${apiKey}`;
+  api = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
+  axios.get(api).then(getCityCoord);
+ 
+ 
+
 }
 function handleSubmit(event) {
   event.preventDefault();
