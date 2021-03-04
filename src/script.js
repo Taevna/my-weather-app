@@ -1,55 +1,18 @@
-let now = new Date();
-
-
-function showWeekday(now) {
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
-  let dayInt = now.getDay();
-  let day = days[dayInt];
-  return day;
-}
-
-function showTime(now) {
-  let hours = now.getHours();
-  let minutes = now.getMinutes();
-  return `${hours}:${minutes}`;
-}
-
-
-/*
-document.querySelector("#day").innerHTML = `${showWeekday(now)}, | ${showTime(
-  now
-)}`;
-
-*/
-
 
 let city = document.querySelector("#search-form");
 
 function displayCondition(response) {
-  /*let temperature = Math.floor(response.data.main.temp);
-  let temperatureH3 = document.querySelector("#temperature");
-  temperatureH3.innerHTML = `${temperature}`;*/
+  
 
   let dateElement = document.querySelector("#date");
   let cityElement = document.querySelector("#city");
   let temperatureElement = document.querySelector("#temperature");
   let descriptionElement = document.querySelector("#description");
-  let feelsLikeElement = document.querySelector("#feelsLike");
+  let feelsLikeElement = document.querySelector("#feels-like-temperature");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
   let iconElement = document.querySelector("#icon");
   let altAttributElement = document.querySelector("#icon");
-  
-
-  
   
   dateElement.innerHTML = formatDate(response.data.dt);
   cityElement.innerHTML = response.data.name;
@@ -75,7 +38,7 @@ function handleSubmit(event) {
   searchCity(city.value);
 }
 
-city.addEventListener("submit", handleSubmit);
+
 
 
 function formatDate(timestamp){
@@ -135,16 +98,8 @@ function displayDefaultCondition(response){
   defaultIcon.setAttribute("src", `src/icons/${response.data.weather[0].icon}.png`);
   defaultAltAttribut.setAttribute("alt",`${response.data.weather[0].description}`);
   
-  
-  
-  
-  
 }
-let defaultCity = "Berlin";
-let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
-let api = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&units=metric&appid=${apiKey}`;
 
-axios.get(api).then(displayDefaultCondition)
 
 function changeUnit(event){
   event.preventDefault();
@@ -168,7 +123,7 @@ function changeUnit(event){
     unitElement.innerHTML = "°F";
     unitButtonElement.innerHTML = "°C";
     feelsLikeUnitElement.innerHTML= "°F";
-    
+
   } else {
    
     let celsiusTemperature = Math.round((55 - 32) * 5/9);
@@ -192,6 +147,13 @@ function changeUnit(event){
 
   
 }
+let defaultCity = "Berlin";
+let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
+let api = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&units=metric&appid=${apiKey}`;
+
+axios.get(api).then(displayDefaultCondition)
+
+city.addEventListener("submit", handleSubmit);
 
 let unitElement = document.querySelector("#unit-button");
 unitElement.addEventListener("click", changeUnit);
