@@ -196,11 +196,28 @@ function showWeather(response){
   iconCurrentElement.setAttribute("src", `src/icons/${response.data.weather[0].icon}.png`);
   altAttributCurrentElement.setAttribute("alt",`${response.data.weather[0].description}`); 
 }
+
+function displayCurrentPlaceForecast(response){
+  for( var i=0; i<6; i++){
+    let dayCurrentElement = document.querySelector(`#forecast-day-${i}`);
+    let iconCurrentElement = document.querySelector(`#forecast-icon-${i}`);
+    let maxTemperatureElement = document.querySelector(`#forecast-max-temperature-${i}`);
+    let minTemperatureElement = document.querySelector(`#forecast-min-temperature-${i}`);
+    dayCurrentElement.innerHTML =  formatWeekday(response.data.daily[i+1].dt);
+    iconCurrentElement.setAttribute("src", `src/icons/${response.data.daily[i+1].weather[0].icon}.png`);
+    maxTemperatureElement.innerHTML = Math.round(response.data.daily[i+1].temp.max);
+    maxTemperatureInCelsius[i] = response.data.daily[i+1].temp.max;
+    minTemperatureElement.innerHTML = Math.round(response.data.daily[i+1].temp.min);
+    minTemperatureInCelsius[i] = response.data.daily[i+1].temp.min;
+  }
+}
 function retrievePosition(position){
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
   axios.get(url).then(showWeather);
+  api = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,current&units=metric&appid=${apiKey}`;
+  axios.get(api).then(displayCurrentPlaceForecast);
 }
 function handleCurrentPlace(event){
   event.preventDefault();
