@@ -1,3 +1,21 @@
+// global variables
+let defaultCity = "Berlin";
+let defaultCityForecast = "Berlin";
+let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
+let api = "";
+let temperatureInCelsius = null;
+let temperatureInFahrenheit = null;
+let feelsLikeInCelsius = null;
+let feelsLikeInFahrenheit = null;
+
+let maxTemperatureInCelsius = [];
+let minTemperatureInCelsius = [];
+
+let maxTemperatureInFahrenheit = [];
+let minTemperatureInFahrenheit = [];
+
+
+// Display default weather condition 
 function formatDate(timestamp){
 let date = new Date(timestamp*1000);
 let days = [
@@ -11,7 +29,6 @@ let days = [
   ];
 let day = days[date.getDay()];
 let months = [
-  
   "January",
   "February",
   "March",
@@ -32,45 +49,99 @@ let hours = date.getUTCHours();
 let minutes = date.getMinutes();
  return `${day}, ${month} ${dayInt} ${year} | ${hours}:${minutes}`;
 }
+
+function  formatWeekday(timestamp){
+let date = new Date(timestamp*1000);
+let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+let day = days[date.getDay()];
+return `${day}`;
+}
+
+function displayDefaultForecast(response){
+    for( var i=0; i<6; i++){
+    let dayElement = document.querySelector(`#forecast-day-${i}`);
+    let iconElement = document.querySelector(`#forecast-icon-${i}`);
+    let maxTemperatureElement = document.querySelector(`#forecast-max-temperature-${i}`);
+    let minTemperatureElement = document.querySelector(`#forecast-min-temperature-${i}`);
+    dayElement.innerHTML =  formatWeekday(response.data.daily[i+1].dt);
+    iconElement.setAttribute("src", `src/icons/${response.data.daily[i+1].weather[0].icon}.png`);
+    maxTemperatureElement.innerHTML = Math.round(response.data.daily[i+1].temp.max);
+    maxTemperatureInCelsius[i] = response.data.daily[i+1].temp.max;
+    minTemperatureElement.innerHTML = Math.round(response.data.daily[i+1].temp.min);
+    minTemperatureInCelsius[i] = response.data.daily[i+1].temp.min;
+    }
+}
+
+function getDefaultCityCoord(response){
+  let cityLat = response.data.city.coord.lat;
+  let cityLon = response.data.city.coord.lon;
+  api = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,current&units=metric&appid=${apiKey}`;
+  axios.get(api).then(displayDefaultForecast);
+}
+
 function displayDefaultCondition(response){
   let defaultDate = document.querySelector("#date");
   let defaultCity = document.querySelector("#city");
-  let defaultTemparature = document.querySelector("#temperature");
+  let defaultTemperature = document.querySelector("#temperature");
   let defaultDescription = document.querySelector("#description");
   let defaultFeelsLike = document.querySelector("#feels-like-temperature");
   let defaultHumidity = document.querySelector("#humidity");
   let defaultWind = document.querySelector("#wind");
   let defaultIcon = document.querySelector("#icon");
   let defaultAltAttribut = document.querySelector("#icon");
+  temperatureInCelsius = response.data.main.temp;
+  feelsLikeInCelsius = response.data.main.feels_like;
   defaultDate.innerHTML = formatDate(response.data.dt);
   defaultCity.innerHTML = response.data.name;
-  defaultTemparature.innerHTML = Math.round(response.data.main.temp);
+  defaultTemperature.innerHTML = Math.round(response.data.main.temp);
   defaultDescription.innerHTML = response.data.weather[0].description;
   defaultFeelsLike.innerHTML = Math.round(response.data.main.feels_like);
   defaultHumidity.innerHTML = Math.round(response.data.main.humidity);
   defaultWind.innerHTML = Math.round(response.data.wind.speed);
   defaultIcon.setAttribute("src", `src/icons/${response.data.weather[0].icon}.png`);
   defaultAltAttribut.setAttribute("alt",`${response.data.weather[0].description}`); 
+  api = `https://api.openweathermap.org/data/2.5/forecast?q=${defaultCityForecast}&units=metric&appid=${apiKey}`;
+  axios.get(api).then(getDefaultCityCoord);
 }
-let defaultCity = "Berlin";
-let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
-let api = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&units=metric&appid=${apiKey}`;
-axios.get(api).then(displayDefaultCondition)
+
+api = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&units=metric&appid=${apiKey}`;
+axios.get(api).then(displayDefaultCondition);
+api = `https://api.openweathermap.org/data/2.5/forecast?q=${defaultCity}&units=metric&appid=${apiKey}`;
+axios.get(api).then(getDefaultCityCoord);
 
 
 // Search engine
 function displayForecast(response){
-  console.log(response.data);
+  for( var i=0; i<6; i++){
+    let dayElement = document.querySelector(`#forecast-day-${i}`);
+    let iconElement = document.querySelector(`#forecast-icon-${i}`);
+    let maxTemperatureElement = document.querySelector(`#forecast-max-temperature-${i}`);
+    let minTemperatureElement = document.querySelector(`#forecast-min-temperature-${i}`);
+    dayElement.innerHTML =  formatWeekday(response.data.daily[i+1].dt);
+    iconElement.setAttribute("src", `src/icons/${response.data.daily[i+1].weather[0].icon}.png`);
+    maxTemperatureElement.innerHTML = Math.round(response.data.daily[i+1].temp.max);
+    maxTemperatureInCelsius[i] = response.data.daily[i+1].temp.max;
+    minTemperatureElement.innerHTML = Math.round(response.data.daily[i+1].temp.min);
+    minTemperatureInCelsius[i] = response.data.daily[i+1].temp.min;
+    }
 }
 
 function getCityCoord(response){
-  let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
   let cityLat = response.data.city.coord.lat;
   let cityLon = response.data.city.coord.lon;
   api = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,current&units=metric&appid=${apiKey}`;
   axios.get(api).then(displayForecast);
   
 }
+
 function displayCondition(response) {
   let dateElement = document.querySelector("#date");
   let cityElement = document.querySelector("#city");
@@ -92,12 +163,10 @@ function displayCondition(response) {
   iconElement.setAttribute("src", `src/icons/${response.data.weather[0].icon}.png`);
   altAttributElement.setAttribute("alt",`${response.data.weather[0].description}`); 
 }
+
 function searchCity(city) {
-  let apiKey = "7d60c6ca1bbdda3284dd78e6babf3688";
-  let api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-
+  api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(api).then(displayCondition);
-
   api = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(api).then(getCityCoord);
 }
@@ -108,42 +177,87 @@ function handleSubmit(event) {
   document.querySelector("#city").innerHTML = city.value;
   searchCity(city.value);
 }
+
 let city = document.querySelector("#search-form");
 city.addEventListener("submit", handleSubmit);
 
 
-// Change unit form celsius to fahrenheit and other way 
+// Change unit form celsius to fahrenheit and other way as well
+function changeForecastUnitToFahrenheit(){
+    let maxTemperatureElement = "";
+    let minTemperatureElement = "";
+    let maxUnitElement = "";
+    let minUnitElement = "";
+    for(var i = 0; i<6; i++){
+      
+      maxTemperature = Math.round(( maxTemperatureInCelsius[i]  * 9 ) / 5 + 32);
+      maxTemperatureElement = document.querySelector(`#forecast-max-temperature-${i}`);
+      
+      maxTemperatureInFahrenheit[i] = maxTemperature;
+      minTemperature = Math.round(( minTemperatureInCelsius[i] * 9 ) / 5 + 32);
+      minTemperatureElement = document.querySelector(`#forecast-min-temperature-${i}`);
+
+  
+      minTemperatureInFahrenheit[i] = minTemperature;
+      maxUnitElement = document.querySelector(`#max-unit-${i}`);
+      minUnitElement = document.querySelector(`#min-unit-${i}`);
+      
+      maxTemperatureElement.innerHTML = maxTemperature;
+      minTemperatureElement.innerHTML = minTemperature;
+      maxUnitElement.innerHTML = "°F";
+      minUnitElement.innerHTML = "°F";
+    }
+}
+
+function changeForecastUnitToCelsuis(){
+    let maxTemperatureElement = "";
+    let minTemperatureElement = "";
+    let maxUnitElement = "";
+    let minUnitElement = "";
+    for(var i = 0; i<6; i++){
+      maxTemperature = Math.round((maxTemperatureInFahrenheit[i] - 32) * 5/9);
+      maxTemperatureElement = document.querySelector(`#forecast-max-temperature-${i}`);
+      maxTemperatureInCelsius[i] = maxTemperature;
+      minTemperature = Math.round((minTemperatureInFahrenheit[i] - 32) * 5/9);
+      minTemperatureElement = document.querySelector(`#forecast-min-temperature-${i}`);
+      minTemperatureInCelsius[i] = minTemperature;
+      maxUnitElement = document.querySelector(`#max-unit-${i}`);
+      minUnitElement = document.querySelector(`#min-unit-${i}`);
+      maxTemperatureElement.innerHTML = maxTemperature;
+      minTemperatureElement.innerHTML = minTemperature;
+      maxUnitElement.innerHTML = "°C";
+      minUnitElement.innerHTML = "°C";
+    }
+}
+
 function changeUnit(event){
   event.preventDefault();
   let currentUnit = document.querySelector("#unit");
-  console.log(currentUnit)
   if(currentUnit.innerHTML === "°C") {
-
-    let fahrenheitTemperature = Math.round(( 14 * 9 ) / 5 + 32);
+    let fahrenheitTemperature = Math.round((temperatureInCelsius * 9 ) / 5 + 32);
     let fahrenheitTemperatureElement = document.querySelector("#temperature");
-
-    let feelsLikeTemperature = Math.round(( 11 * 9 ) / 5 + 32);
-    console.log(feelsLikeTemperature);
+    let feelsLikeTemperature = Math.round(( feelsLikeInCelsius * 9 ) / 5 + 32);
     let feelsLikeTemperatueElement = document.querySelector("#feels-like-temperature");
-
     let unitElement = document.querySelector("#unit");
     let unitButtonElement = document.querySelector("#unit-link");
     let feelsLikeUnitElement = document.querySelector("#feels-like-unit");
-    
+    temperatureInFahrenheit = fahrenheitTemperature;
+    feelsLikeInFahrenheit = feelsLikeTemperature;
     fahrenheitTemperatureElement.innerHTML = fahrenheitTemperature;
     feelsLikeTemperatueElement.innerHTML = feelsLikeTemperature;
+    
     unitElement.innerHTML = "°F";
     unitButtonElement.innerHTML = "°C";
     feelsLikeUnitElement.innerHTML= "°F";
 
+    changeForecastUnitToFahrenheit();
+
   } else {
    
-    let celsiusTemperature = Math.round((55 - 32) * 5/9);
+    let celsiusTemperature = Math.round(( temperatureInFahrenheit - 32) * 5/9);
     let celsiusTemperatureElement = document.querySelector("#temperature");
-
-    let feelsLikeTemperature = Math.round((50 - 32) * 5/9);
+    let feelsLikeTemperature = Math.round((feelsLikeInFahrenheit - 32) * 5/9);
     let feelsLikeTemperatureElement = document.querySelector("#feels-like-temperature");
-
     let unitElement = document.querySelector("#unit");
     let unitButtonElement = document.querySelector("#unit-link");
     let feelsLikeUnitElement = document.querySelector("#feels-like-unit");
@@ -155,7 +269,10 @@ function changeUnit(event){
     unitButtonElement.innerHTML = "°F";
     feelsLikeUnitElement.innerHTML = "°C";
 
+    changeForecastUnitToCelsuis();
+
   }
 }
+
 let unitElement = document.querySelector("#unit-button");
 unitElement.addEventListener("click", changeUnit);
