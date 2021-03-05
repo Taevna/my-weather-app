@@ -14,10 +14,6 @@ let minTemperatureInCelsius = [];
 let maxTemperatureInFahrenheit = [];
 let minTemperatureInFahrenheit = [];
 
-
-// Display default weather condition 
-function formatDate(timestamp){
-let date = new Date(timestamp*1000);
 let days = [
     "Sunday",
     "Monday",
@@ -27,6 +23,12 @@ let days = [
     "Friday",
     "Saturday"
   ];
+
+
+// Display default weather condition 
+function formatDate(timestamp){
+let date = new Date(timestamp*1000);
+
 let day = days[date.getDay()];
 let months = [
   "January",
@@ -52,15 +54,6 @@ let minutes = date.getMinutes();
 
 function  formatWeekday(timestamp){
 let date = new Date(timestamp*1000);
-let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
 let day = days[date.getDay()];
 return `${day}`;
 }
@@ -171,15 +164,51 @@ function searchCity(city) {
   axios.get(api).then(getCityCoord);
 }
 
-function handleSubmit(event) {
+function handleCitytoSearch(event) {
   event.preventDefault();
-  let city = document.querySelector("#search-input");
+  let city =document.querySelector("#search-input");
   document.querySelector("#city").innerHTML = city.value;
   searchCity(city.value);
+  
 }
+let cityToSearch = document.querySelector("#search-form");
+cityToSearch.addEventListener("submit", handleCitytoSearch);
 
-let city = document.querySelector("#search-form");
-city.addEventListener("submit", handleSubmit);
+// Search current place 
+function showWeather(response){
+  let dateCurrentElement = document.querySelector("#date");
+  let cityCurrentElement = document.querySelector("#city");
+  let temperatureCurrentElement = document.querySelector("#temperature");
+  let descriptionCurrentElement = document.querySelector("#description");
+  let feelsLikeCurrentElement = document.querySelector("#feels-like-temperature");
+  let humidityCurrentElement = document.querySelector("#humidity");
+  let windCurrentElement = document.querySelector("#wind");
+  let iconCurrentElement = document.querySelector("#icon");
+  let altAttributCurrentElement = document.querySelector("#icon");
+  
+  dateCurrentElement.innerHTML = formatDate(response.data.dt);
+  cityCurrentElement.innerHTML = response.data.name;
+  temperatureCurrentElement.innerHTML = Math.round(response.data.main.temp);
+  descriptionCurrentElement.innerHTML = response.data.weather[0].description;
+  feelsLikeCurrentElement.innerHTML = Math.round(response.data.main.feels_like);
+  humidityCurrentElement.innerHTML = Math.round(response.data.main.humidity);
+  windCurrentElement.innerHTML = Math.round(response.data.wind.speed);
+  iconCurrentElement.setAttribute("src", `src/icons/${response.data.weather[0].icon}.png`);
+  altAttributCurrentElement.setAttribute("alt",`${response.data.weather[0].description}`); 
+}
+function retrievePosition(position){
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  axios.get(url).then(showWeather);
+}
+function handleCurrentPlace(event){
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(retrievePosition);
+  
+}
+let currentPlace = document.querySelector("#submit-input-currentPlace");
+currentPlace.addEventListener("click", handleCurrentPlace);
 
 
 // Change unit form celsius to fahrenheit and other way as well
